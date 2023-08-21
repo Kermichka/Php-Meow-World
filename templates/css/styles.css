@@ -1,0 +1,218 @@
+/* Основни стилове */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    color: #333;
+}
+
+/* Навигационен бар */
+.navbar {
+    background-color: #333;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    margin: 0 10px;
+}
+
+.navbar a:hover {
+    background-color: #575757;
+    border-radius: 5px;
+}
+
+/* Продукти */
+.products {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 колони */
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.product {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.product:hover {
+    transform: scale(1.05);
+}
+
+.product img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.product h2 {
+    font-size: 1.2em;
+    color: #333;
+}
+
+.product p {
+    font-size: 1em;
+    color: #666;
+}
+
+.product button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.product button:hover {
+    background-color: #45a049;
+}
+
+/* Формуляри */
+form {
+    margin: 20px 0;
+    text-align: center;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="file"] {
+    padding: 10px;
+    margin: 10px 0;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Стилове за страници с вход и регистрация */
+form p {
+    font-size: 1em;
+    color: #666;
+}
+
+a {
+    text-decoration: none;
+    color: #4CAF50;
+}
+
+a:hover {
+    color: #45a049;
+}
+
+/* Стилове за количка */
+.cart-item {
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cart-item img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+.cart-item p {
+    font-size: 1.2em;
+}
+
+.cart-item button {
+    background-color: #ff4d4d;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.cart-item button:hover {
+    background-color: #e60000;
+}
+
+/* Стилове за профила */
+.profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.profile-container img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.profile-container form {
+    margin-top: 20px;
+}
+
+.profile-container label {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.profile-container input[type="file"] {
+    margin-top: 10px;
+}
+
+.profile-container button {
+    margin-top: 20px;
+}
+
+/* Стилове за успешна поръчка */
+.success-container {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.success-container a {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.success-container a:hover {
+    background-color: #45a049;
+}
