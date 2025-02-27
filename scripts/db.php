@@ -1,6 +1,6 @@
 <?php
 // Пътят към вашата база данни (SQLite)
-$db_file = '/var/www/html/shop/data/shop.db';
+$db_file = __DIR__ . '/../data/shop.db';
 
 // Създаване на връзка с базата данни (SQLite)
 try {
