@@ -1,6 +1,6 @@
 <?php
 // Absolute path to products.json
-$json = file_get_contents(__DIR__ . '/shop/scripts/products.json');
+$json = file_get_contents(__DIR__ . '/products.json');
 
 // Decode the JSON file
 $products = json_decode($json, true);
