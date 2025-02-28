@@ -6,7 +6,7 @@ $db_file = __DIR__ . '/../data/shop.db';
 try {
     $pdo = new PDO('sqlite:' . $db_file);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    
+
     // SQL заявка за създаване на таблица "products"
     $pdo->exec("CREATE TABLE IF NOT EXISTS products (
         id INTEGER PRIMARY KEY,
