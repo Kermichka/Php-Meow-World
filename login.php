@@ -3,7 +3,7 @@ session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     include('scripts/db.php');
-    
+
     // Получаваме въведените данни
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -18,7 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
 
-        header('Location: index.php'); // Пренасочваме към началната страница
+        // Пренасочваме към началната страница
+        header('Location: index.php');
         exit();
     } else {
         $error = "Невалидно потребителско име или парола.";

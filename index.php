@@ -16,6 +16,15 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Магазин</title>
     <link rel="stylesheet" href="./templates/css/styles.css">
+    <script>
+        function validateAddToCart(quantity) {
+            if (quantity <= 0) {
+                alert("Този продукт не е наличен и не може да бъде добавен в количката.");
+                return false; // Prevent form submission
+            }
+            return true; // Allow form submission
+        }
+    </script>
 </head>
 <body>
 
@@ -37,12 +46,12 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <div class="products">
     <?php foreach ($products as $product): ?>
         <div class="product">
-            <img src="<?php echo $product['image']; ?>" alt="<?php echo $product['name']; ?>" width="200" height="200">
-            <h2><?php echo $product['name']; ?></h2>
-            <p><?php echo $product['description']; ?></p>
+            <img src="<?php echo $product['image']; ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" width="200" height="200">
+            <h2><?php echo htmlspecialchars($product['name']); ?></h2>
+            <p><?php echo htmlspecialchars($product['description']); ?></p>
             <p>Цена: <?php echo number_format($product['price'] / 100, 2); ?> лв.</p>
             <p>Наличност: <?php echo $product['quantity']; ?></p>
-            <form method="POST" action="add_to_cart.php">
+            <form method="POST" action="add_to_cart.php" onsubmit="return validateAddToCart(<?php echo $product['quantity']; ?>);">
                 <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
                 <button type="submit">Добави в количката</button>
             </form>

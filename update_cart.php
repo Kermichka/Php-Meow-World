@@ -9,33 +9,47 @@ if (!isset($_SESSION['user_id'])) {
 include('scripts/db.php');
 
 $user_id = $_SESSION['user_id'];
-$stmt = $pdo->prepare("SELECT carts.product_id, carts.quantity AS cart_quantity, products.quantity AS product_quantity
-                       FROM carts
-                       JOIN products ON carts.product_id = products.id
-                       WHERE carts.user_id = ?");
-$stmt->execute([$user_id]);
-$cart_items = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    foreach ($cart_items as $item) {
-        if ($item['cart_quantity'] > $item['product_quantity']) {
-            echo "Няма достатъчно количество за продукта: " . $item['product_id'];
-            exit();
+    $product_id = $_POST['product_id'];
+    $action = $_POST['action'];
+
+    // Fetch the current quantity in the cart for the product
+    $stmt = $pdo->prepare("SELECT quantity FROM carts WHERE user_id = ? AND product_id = ?");
+    $stmt->execute([$user_id, $product_id]);
+    $cart_item = $stmt->fetch();
+
+    if ($cart_item) {
+        $current_quantity = $cart_item['quantity'];
+
+        if ($action === 'plus') {
+            $new_quantity = $current_quantity + 1;
+
+            // Check if the product is available in stock
+            $stmt = $pdo->prepare("SELECT quantity FROM products WHERE id = ?");
+            $stmt->execute([$product_id]);
+            $product = $stmt->fetch();
+
+            if ($product && $product['quantity'] >= $new_quantity) {
+                $stmt_update = $pdo->prepare("UPDATE carts SET quantity = ? WHERE user_id = ? AND product_id = ?");
+                $stmt_update->execute([$new_quantity, $user_id, $product_id]);
+            } else {
+                echo "Недостатъчно количество налично.";
+            }
+        } elseif ($action === 'minus') {
+            if ($current_quantity > 1) {
+                $new_quantity = $current_quantity - 1;
+                $stmt_update = $pdo->prepare("UPDATE carts SET quantity = ? WHERE user_id = ? AND product_id = ?");
+                $stmt_update->execute([$new_quantity, $user_id, $product_id]);
+            } else {
+                // If quantity is 1, remove the item from the cart
+                $stmt_delete = $pdo->prepare("DELETE FROM carts WHERE user_id = ? AND product_id = ?");
+                $stmt_delete->execute([$user_id, $product_id]);
+            }
         }
     }
 
-    foreach ($cart_items as $item) {
-        $new_quantity = $item['product_quantity'] - $item['cart_quantity'];
-        $product_id = $item['product_id'];
-
-        $stmt_update = $pdo->prepare("UPDATE products SET quantity = ? WHERE id = ?");
-        $stmt_update->execute([$new_quantity, $product_id]);
-    }
-
-    $stmt_clear_cart = $pdo->prepare("DELETE FROM carts WHERE user_id = ?");
-    $stmt_clear_cart->execute([$user_id]);
-
-    header('Location: checkout_success.php');
+    header('Location: cart.php');
     exit();
 }
 ?>
