@@ -20,9 +20,9 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
         function validateAddToCart(quantity) {
             if (quantity <= 0) {
                 alert("Този продукт не е наличен и не може да бъде добавен в количката.");
-                return false; // Prevent form submission
+                return false;
             }
-            return true; // Allow form submission
+            return true;
         }
     </script>
 </head>
